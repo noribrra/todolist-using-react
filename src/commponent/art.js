@@ -1,4 +1,4 @@
-export default function Art({name,email,age}) {
+export default function Art({name,email,age,children}) {
     
   return (
     <>
@@ -20,10 +20,13 @@ export default function Art({name,email,age}) {
           }}
         >
           <h1>{name}</h1>
-          <hr />
+          
           <h3>{email}</h3>
-          <hr />
+          
           <h3>{age}</h3>
+          <hr />
+          {children}
+          <p></p>
         </div>
       </div>
     </>
