@@ -1,47 +1,17 @@
 import "./App.css";
-import Nav from "./commponent/Nav";
-import Post from "./commponent/Post";
-import Side from "./commponent/Side";
+import Art from "./commponent/art";
+
 function App() {
   return (
     <div className="App">
-      <Nav />
-
-      <div style={{
-        display:"flex",
-        justifyContent:"center"
-      }}>
-        {/* post and side  container  */}
-
-        <div
-          style={{
-            display: "flex",
-            width:"60%"
-          }}
-        >
-          {/* post container */}
-          <div
-            style={{
-              width: "70%",
-            }}
-          >
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-          </div>
-
-          {/* Side menu */}
-
-          <div style={{
-            width:"30%"
-          }}>
-            <Side />
-          </div>
-        </div>
-      </div>
+      
+      
+      
+      <Art name='ahmd' email="ahmd@gmail.com"  age="21"/>
+      <Art name='nor' email="nor@gmail.com"  age="20"/>
+      <Art name='ali' email="ali@gmail.com"  age="11"/>
+      <Art name='omer' email="omer@gmail.com"  age="31"/>
+      
     </div>
   );
 }
