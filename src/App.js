@@ -1,5 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import My from "./commponent/My";
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-           React
+          <h1>nor ibrahim ee nor </h1>
         </a>
+        <My />
       </header>
     </div>
   );
