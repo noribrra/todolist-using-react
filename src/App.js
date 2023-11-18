@@ -1,25 +1,47 @@
-import logo from "./logo.svg";
 import "./App.css";
-import My from "./commponent/My";
-
+import Nav from "./commponent/Nav";
+import Post from "./commponent/Post";
+import Side from "./commponent/Side";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Nav />
+
+      <div style={{
+        display:"flex",
+        justifyContent:"center"
+      }}>
+        {/* post and side  container  */}
+
+        <div
+          style={{
+            display: "flex",
+            width:"60%"
+          }}
         >
-          <h1>nor ibrahim ee nor </h1>
-        </a>
-        <My />
-      </header>
+          {/* post container */}
+          <div
+            style={{
+              width: "70%",
+            }}
+          >
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+          </div>
+
+          {/* Side menu */}
+
+          <div style={{
+            width:"30%"
+          }}>
+            <Side />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
