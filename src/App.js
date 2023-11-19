@@ -1,28 +1,51 @@
 import "./App.css";
-import Art from "./commponent/art";
+import Nav from "./commponent/Nave";
+import Post from "./commponent/Post";
+import Side from "./commponent/Side";
+const show = true;
 
 function App() {
   return (
     <div className="App">
-      <Art name="ahmd" email="ahmd@gmail.com" age="21">
-        ahmd ibrahim test
-      </Art>
+      <Nav />
 
-      <Art name="nor" email="nor@gmail.com" age="20">
-        <h2 style={{
-          backgroundColor:"blue",
-        }}>nor test props child</h2>
-      </Art>
-      <Art name="ali" email="ali@gmail.com" age="11">
-        <p style={{
-          backgroundColor:"red"
-        }}>ali test props child</p>
-      </Art>
-      <Art name="omer" email="omer@gmail.com" age="31">
-        omer ibrahim test
-      </Art>
+      {/* continer  */}
+      <div
+        style={{
+          marginTop: "30px",
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        {/* post and side bar */}
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "80%",
+          }}
+        >
+          {/* post */}
+          <div style={{ width: "60%" }}>
+            <Post title="ahmd post" body="this is ahmd body" />
+            <Post title="nor post" body="this is nor body" />
+            <Post title="ali post" body="this is ali body" />
+          </div>
+          <Appsodemenu />
+        </div>
+      </div>
     </div>
   );
+}
+
+function Appsodemenu() {
+  if (show) {
+    return <Side />;
+  }else{
+    return null;
+  }
 }
 
 export default App;

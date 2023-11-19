@@ -1,0 +1,14 @@
+#btn{
+
+    border: none;
+    border-radius: 20px;
+    color: white;
+    width: 50px;
+    background-color: purple;
+    transition: all 0.3s;
+}
+
+#btn:hover{
+
+    background-color: rgb(86, 9, 86);
+}
