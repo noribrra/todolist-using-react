@@ -1,51 +1,29 @@
 import "./App.css";
-import Nav from "./commponent/Nave";
-import Post from "./commponent/Post";
-import Side from "./commponent/Side";
-const show = true;
 
 function App() {
+  const tasks = [
+    { id: 1, title: "doing my hommork" },
+    { id: 2, title: "reading" },
+    { id: 3, title: "play" },
+    { id: 4, title: "writing" },
+  ];
+  const mylist = tasks.map((task) => {
+    return <div style={{
+      color:"black",
+      backgroundColor:"teal",
+      margin:"20px 20px"
+    }} key={task.id}>{task.title}</div>;
+  });
+
+  
+
   return (
     <div className="App">
-      <Nav />
-
-      {/* continer  */}
-      <div
-        style={{
-          marginTop: "30px",
-          display: "flex",
-          justifyContent: "center",
-          width: "100%",
-        }}
-      >
-        {/* post and side bar */}
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            width: "80%",
-          }}
-        >
-          {/* post */}
-          <div style={{ width: "60%" }}>
-            <Post title="ahmd post" body="this is ahmd body" />
-            <Post title="nor post" body="this is nor body" />
-            <Post title="ali post" body="this is ali body" />
-          </div>
-          <Appsodemenu />
-        </div>
+      <div>
+        {mylist}
       </div>
     </div>
   );
-}
-
-function Appsodemenu() {
-  if (show) {
-    return <Side />;
-  }else{
-    return null;
-  }
 }
 
 export default App;
