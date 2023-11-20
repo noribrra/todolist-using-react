@@ -29,9 +29,7 @@ function App() {
         >
           {/* post */}
           <div style={{ width: "60%" }}>
-            <Post title="ahmd post" body="this is ahmd body" />
-            <Post title="nor post" body="this is nor body" />
-            <Post title="ali post" body="this is ali body" />
+              {posts}
           </div>
           <Appsodemenu />
         </div>
@@ -47,5 +45,18 @@ function Appsodemenu() {
     return null;
   }
 }
+
+const post=[
+  {id:1,title:"ahmd",body:"this ahmd body"},
+  {id:2,title:"nor",body:"this nor body"},
+  {id:3,title:"ali",body:"this ali body"},
+  {id:4,title:"omer",body:"this omer body"},
+
+]
+const posts=post.map((postt)=>{
+  return(
+    <Post key={postt.id} title={postt.title} body={postt.body} />
+  )
+})
 
 export default App;
