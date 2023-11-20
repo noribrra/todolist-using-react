@@ -1,5 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Btn from "./But";
+import Input from "./Input";
 
 function App() {
   return (
@@ -15,8 +17,10 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-           React
+          React
         </a>
+        <Btn />
+        <Input />
       </header>
     </div>
   );
