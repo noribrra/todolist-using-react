@@ -22,15 +22,32 @@ export default function App() {
   const [products, setProducts] = useState(initialProducts);
 
   function handleIncreaseClick(productId) {
-    let nwearray = products.map((obj) => {
-      if (obj.id === productId) {
-        let newobj = { ...obj, count: obj.count + 1 };
-        return newobj;
-      } else {
-        return obj;
-      }
-    });
-    setProducts(nwearray);
+    setProducts(
+      products.map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            count: product.count + 1,
+          };
+        } else {
+          return product;
+        }
+      })
+    );
+  }
+  function handledlelteClick(productId) {
+    setProducts(
+      products.map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            count: product.count - 1,
+          };
+        } else {
+          return product;
+        }
+      })
+    );
   }
 
   return (
@@ -44,6 +61,13 @@ export default function App() {
             }}
           >
             +
+          </button>
+          <button
+            onClick={() => {
+              handledlelteClick(product.id);
+            }}
+          >
+            –
           </button>
         </li>
       ))}
