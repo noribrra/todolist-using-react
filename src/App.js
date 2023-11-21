@@ -1,20 +1,31 @@
 import { useState } from "react";
-import "./App.css";
 
-function App() {
-  const [count, setcount] = useState(0);
-  function add() {
-    setcount(count + 1);
-    setcount((c) => {
+export default function RequestTracker() {
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
+
+  async function handleClick() {
+    setPending(pending + 1);
+    await delay(8000);
+    setPending((c) => {
+      return c - 1;
+    });
+    setCompleted((c) => {
       return c + 1;
     });
   }
+
   return (
-    <div className="App">
-      <h1> the Count is:{count}</h1>
-      <button onClick={add}>+</button>
-    </div>
+    <>
+      <h3>Pending: {pending}</h3>
+      <h3>Completed: {completed}</h3>
+      <button onClick={handleClick}>Buy</button>
+    </>
   );
 }
 
-export default App;
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
