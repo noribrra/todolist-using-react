@@ -26,7 +26,7 @@ function App() {
             editclick(div.id);
           }}
         >
-          edit
+          edit nor
         </button>
       </li>
     );
