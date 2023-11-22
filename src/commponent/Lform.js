@@ -13,6 +13,7 @@ export default function Lform() {
     salary: "",
     employee: "",
   });
+  // functions
   function clickform(e) {
     e.preventDefault();
     setshomadel(true);
@@ -25,6 +26,19 @@ export default function Lform() {
       setms("your age have to between 18-40");
     }
   }
+  // name
+  function handelnamechangel(v) {
+    setforminput({ ...forminput, name: v });
+  }
+  // number
+  function handelnumberchangel(v) {
+    setforminput({ ...forminput, number: v });
+  }
+  // age
+  function handelagechangel(v) {
+    setforminput({ ...forminput, age: v });
+  }
+  // end functions
   let disible =
     forminput.name === "" || forminput.age === "" || forminput.number === "";
 
@@ -47,41 +61,23 @@ export default function Lform() {
       <form id="form" action="" className="flex">
         <h1>Requesting loan</h1>
         <hr />
-        <label htmlFor="name"> Name</label>
-        <input
-          placeholder="NOR IBRAHIM"
+
+        <Minput
           value={forminput.name}
-          type="text"
-          id="nor"
-          onChange={(e) => {
-            setforminput({ ...forminput, name: e.target.value });
-          }}
+          setforminput={handelnamechangel}
+          nameofinput="Name"
         />
         <Minput
           value={forminput.number}
-          setforminput={setforminput}
-          forminput={forminput}
+          setforminput={handelnumberchangel}
+          nameofinput="Number"
         />
-        {/* <label htmlFor="number"> Namber</label>
-        <input
-          placeholder="+963 994 595 431"
-          value={forminput.number}
-          type="text"
-          id="number"
-          onChange={(e) => {
-            setforminput({ ...forminput, number: e.target.value });
-          }}
-        /> */}
-        <label htmlFor="age"> Age</label>
-        <input
-          placeholder="22"
+        <Minput
           value={forminput.age}
-          type="text"
-          id="age"
-          onChange={(e) => {
-            setforminput({ ...forminput, age: e.target.value });
-          }}
+          setforminput={handelagechangel}
+          nameofinput="Age"
         />
+
         <label style={{ marginTop: "30px" }} htmlFor="empl">
           {" "}
           Are you an employee

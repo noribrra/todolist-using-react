@@ -1,14 +1,14 @@
-export default function Minput({ value, setforminput, forminput }) {
+export default function Minput({ value, setforminput, nameofinput }) {
   return (
     <>
-      <label htmlFor="number"> Namber</label>
+      <label htmlFor="number"> {nameofinput}</label>
       <input
         placeholder="+963 994 595 431"
         value={value}
         type="text"
         id="number"
         onChange={(e) => {
-          setforminput({ ...forminput, number: e.target.value });
+          setforminput(e.target.value);
         }}
       />
     </>
