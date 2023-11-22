@@ -34,7 +34,7 @@ export default function Lform() {
         justifyContent: "center",
         alignItems: "center",
         width: "100vw",
-        background: "orange",
+
         height: "100vh",
       }}
       onClick={() => {
@@ -85,7 +85,6 @@ export default function Lform() {
           type="checkbox"
           id="empl"
           onChange={(e) => {
-            console.log(e);
             setforminput({ ...forminput, employee: e.target.checked });
           }}
         />
