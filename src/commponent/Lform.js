@@ -2,6 +2,7 @@ import "./form.css";
 import Amodel from "./Amodel";
 import Minput from "./Minput";
 import { useState } from "react";
+import { Leonforminput } from "../Contexts/Lonforminput";
 
 export default function Lform() {
   const [ms, setms] = useState(null);
@@ -10,7 +11,7 @@ export default function Lform() {
     name: "",
     number: "",
     age: "",
-    salary: "",
+    salary: "less than 500$",
     employee: "",
   });
   // functions
@@ -61,22 +62,33 @@ export default function Lform() {
       <form id="form" action="" className="flex">
         <h1>Requesting loan</h1>
         <hr />
-
-        <Minput
-          value={forminput.name}
-          setforminput={handelnamechangel}
-          nameofinput="Name"
-        />
-        <Minput
-          value={forminput.number}
-          setforminput={handelnumberchangel}
-          nameofinput="Number"
-        />
-        <Minput
-          value={forminput.age}
-          setforminput={handelagechangel}
-          nameofinput="Age"
-        />
+        <Leonforminput.Provider
+          value={{
+            nameofinput: "Name",
+            setforminput: handelnamechangel,
+            value: forminput.name,
+          }}
+        >
+          <Minput />
+        </Leonforminput.Provider>
+        <Leonforminput.Provider
+          value={{
+            nameofinput: "Number",
+            setforminput: handelnumberchangel,
+            value: forminput.number,
+          }}
+        >
+          <Minput />
+        </Leonforminput.Provider>
+        <Leonforminput.Provider
+          value={{
+            nameofinput: "Age",
+            setforminput: handelagechangel,
+            value: forminput.age,
+          }}
+        >
+          <Minput />
+        </Leonforminput.Provider>
 
         <label style={{ marginTop: "30px" }} htmlFor="empl">
           {" "}

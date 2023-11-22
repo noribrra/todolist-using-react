@@ -1,16 +1,9 @@
-export default function Minput({ value, setforminput, nameofinput }) {
+import Mminput from "./Mminput";
+
+export default function Minput() {
   return (
     <>
-      <label htmlFor="number"> {nameofinput}</label>
-      <input
-        placeholder="+963 994 595 431"
-        value={value}
-        type="text"
-        id="number"
-        onChange={(e) => {
-          setforminput(e.target.value);
-        }}
-      />
+      <Mminput />
     </>
   );
 }
