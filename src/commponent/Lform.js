@@ -1,5 +1,6 @@
 import "./form.css";
 import Amodel from "./Amodel";
+import Minput from "./Minput";
 import { useState } from "react";
 
 export default function Lform() {
@@ -44,7 +45,7 @@ export default function Lform() {
       }}
     >
       <form id="form" action="" className="flex">
-        <h1>nor</h1>
+        <h1>Requesting loan</h1>
         <hr />
         <label htmlFor="name"> Name</label>
         <input
@@ -56,7 +57,12 @@ export default function Lform() {
             setforminput({ ...forminput, name: e.target.value });
           }}
         />
-        <label htmlFor="number"> Namber</label>
+        <Minput
+          value={forminput.number}
+          setforminput={setforminput}
+          forminput={forminput}
+        />
+        {/* <label htmlFor="number"> Namber</label>
         <input
           placeholder="+963 994 595 431"
           value={forminput.number}
@@ -65,7 +71,7 @@ export default function Lform() {
           onChange={(e) => {
             setforminput({ ...forminput, number: e.target.value });
           }}
-        />
+        /> */}
         <label htmlFor="age"> Age</label>
         <input
           placeholder="22"
