@@ -17,9 +17,9 @@ export default function Nav() {
           home
         </li>
       </Link>
-      <Link to="/nor">
+      <Link to="/post">
         <li style={{ margin: "0px 20px", color: "#fff", cursor: "pointer" }}>
-          Nor
+          posts
         </li>
       </Link>
     </div>

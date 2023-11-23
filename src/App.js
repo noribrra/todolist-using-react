@@ -5,8 +5,12 @@ import Home from "./commponent/Home";
 import Nor from "./commponent/Nor";
 import Post from "./commponent/Post";
 import Page040 from "./commponent/Page040";
+import Delete from "./commponent/Delete";
+import Create from "./commponent/Create";
+import Postleout from "./commponent/Postleout";
 
 import { Postcontext } from "./context/Postcontext";
+
 function App() {
   let postdata = [
     {
@@ -36,8 +40,14 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/nor" element={<Nor />} />
-          <Route path="/postd/:postId" element={<Post />} />
+
+          <Route path="/POST" element={<Postleout />}>
+            <Route index element={<Nor />} />
+            <Route path=":postId" element={<Post />} />
+            <Route path="delete" element={<Delete />} />
+            <Route path="create" element={<Create />} />
+          </Route>
+
           <Route path="*" element={<Page040 />} />
         </Routes>
       </>

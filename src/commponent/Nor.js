@@ -17,7 +17,7 @@ export default function Nor() {
           borderRadius: "10px",
         }}
       >
-        <Link to={`/postd/${post.id}`}>
+        <Link to={`/post/${post.id}`}>
           <h1>{post.title}</h1>
         </Link>
       </div>
