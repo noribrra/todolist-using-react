@@ -1,58 +1,52 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import Nav from "./commponent/Nav";
-import Home from "./commponent/Home";
-import Nor from "./commponent/Nor";
-import Post from "./commponent/Post";
-import Page040 from "./commponent/Page040";
-import Delete from "./commponent/Delete";
-import Create from "./commponent/Create";
-import Postleout from "./commponent/Postleout";
+import * as React from "react";
+import Container from "@mui/material/Container";
+import Lists from "./Lists";
 
-import { Postcontext } from "./context/Postcontext";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 
-function App() {
-  let postdata = [
-    {
-      id: 1,
-      title: "nor",
-      body: "this is nor post",
-    },
-    {
-      id: 2,
-      title: "ali",
-      body: "this is ali post",
-    },
-    {
-      id: 3,
-      title: "ahmd",
-      body: "this is ahmd post",
-    },
-    {
-      id: 4,
-      title: "omer",
-      body: "this is omer post",
-    },
-  ];
+export default function NestedList() {
+  const [open, setOpen] = React.useState(false);
+  const [openl, setOpenl] = React.useState(false);
+  const [hight, sethighight] = React.useState("100px");
+  const [swich, setswish] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+  const handleClickl = () => {
+    setOpenl(!openl);
+  };
+
   return (
-    <Postcontext.Provider value={postdata}>
-      <>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-
-          <Route path="/POST" element={<Postleout />}>
-            <Route index element={<Nor />} />
-            <Route path=":postId" element={<Post />} />
-            <Route path="delete" element={<Delete />} />
-            <Route path="create" element={<Create />} />
-          </Route>
-
-          <Route path="*" element={<Page040 />} />
-        </Routes>
-      </>
-    </Postcontext.Provider>
+    <Container>
+      <Lists handleClick={handleClick} open={open}>
+        <p>nor ibrahim</p>
+      </Lists>
+      <Lists handleClick={handleClickl} open={openl}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={swich}
+              onChange={() => {
+                setswish(!swich);
+                !swich ? sethighight("400px") : sethighight("100px");
+              }}
+            />
+          }
+        />
+      </Lists>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          backgroundColor: "orange",
+          height: `${hight}`,
+        }}
+      >
+        <h3>hellow world</h3>
+      </div>
+    </Container>
   );
 }
-
-export default App;
