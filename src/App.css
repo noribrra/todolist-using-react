@@ -36,3 +36,56 @@
     transform: rotate(360deg);
   }
 }
+.todocard {
+  transition: all 0.2s !important;
+}
+.todocard:hover {
+  padding: 5px 0px;
+  box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.4);
+}
+
+/* costom fonts */
+@font-face {
+  font-family: alks;
+  src: url(../public/fonts/Alexandria-Regular.ttf);
+  font-size: normal;
+}
+@font-face {
+  font-family: alks;
+  src: url(../public/fonts/Alexandria-Bold.ttf);
+  font-size: bold;
+}
+@font-face {
+  font-family: alks;
+  src: url(../public/fonts/Alexandria-Black.ttf);
+  font-size: 900;
+}
+@font-face {
+  font-family: alks;
+  src: url(../public/fonts/Alexandria-Light.ttf);
+  font-size: 200;
+}
+/* =========costom fonts====== */
+
+/* scrolll */
+
+.scrollable-div {
+  overflow-y: auto;
+  margin-top: 10px;
+  transform: rotate(180deg);
+}
+.scrollable-div-inside {
+  transform: rotate(-180deg);
+}
+.scrollable-div::-webkit-scrollbar {
+  position: absolute;
+  right: 0; /* Position the scrollbar on the right of the element*/
+}
+.scrollable-div::-webkit-scrollbar-thumb {
+  background-color: #b9b9b9; /* Set the color of the thumb */
+  border-radius: 5px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(236, 236, 236);
+  border-radius: 5px;
+}
