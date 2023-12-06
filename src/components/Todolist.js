@@ -39,7 +39,7 @@ export default function Todolist() {
   });
 
   useEffect(() => {
-    let todolis = JSON.parse(localStorage.getItem("todos"));
+    let todolis = JSON.parse(localStorage.getItem("todos")) ?? [];
     setto(todolis);
   }, []);
 
