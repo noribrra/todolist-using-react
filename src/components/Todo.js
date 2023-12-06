@@ -5,27 +5,14 @@ import Typography from "@mui/material/Typography";
 import { useContext, useState } from "react";
 import { Listcontex } from "../context/Listcontext";
 
-// dialog
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 // icons
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-export default function Todo({ t }) {
+export default function Todo({ t, opendelit, openedit }) {
   const { to, setto } = useContext(Listcontex);
-  const [open, setOpen] = useState(false);
-  const [openup, setOpenup] = useState(false);
-  const [valueupdate, setvalueupdate] = useState({
-    title: t.title,
-    body: t.body,
-  });
+
   // functions
   function click() {
     const newa = to.map((tt) => {
@@ -38,119 +25,16 @@ export default function Todo({ t }) {
     localStorage.setItem("todos", JSON.stringify(newa));
   }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // update
-  const handleClickOpenup = () => {
-    setOpenup(true);
-  };
-
-  const handleCloseup = () => {
-    setOpenup(false);
-  };
-
-  function handledleteconferm() {
-    const newarry = to.filter((tt) => {
-      return tt.id != t.id;
-    });
-    setto(newarry);
-    localStorage.setItem("todos", JSON.stringify(newarry));
+  function handleClickOpen() {
+    opendelit(t);
   }
-
-  function handalupdateconfirm() {
-    let newupdate = to.map((tt) => {
-      if (tt.id == t.id) {
-        return { ...tt, title: valueupdate.title, body: valueupdate.body };
-      }
-      return tt;
-    });
-    setto(newupdate);
-    localStorage.setItem("todos", JSON.stringify(newupdate));
-
-    handleCloseup();
+  function handleClickOpenup() {
+    openedit(t);
   }
 
   // return
   return (
     <>
-      {/* update dialog */}
-      <>
-        <Dialog
-          style={{ direction: "rtl" }}
-          open={openup}
-          onClose={handleCloseup}
-        >
-          <DialogTitle>تعديل هذه المهمة</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="عنوان"
-              type="text"
-              fullWidth
-              variant="standard"
-              value={valueupdate.title}
-              onChange={(e) => {
-                setvalueupdate({ ...valueupdate, title: e.target.value });
-              }}
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="تفاصيل"
-              type="text"
-              fullWidth
-              variant="standard"
-              value={valueupdate.body}
-              onChange={(e) => {
-                setvalueupdate({ ...valueupdate, body: e.target.value });
-              }}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseup}>اغلاق</Button>
-            <Button onClick={handalupdateconfirm}>تاكيد تعديل</Button>
-          </DialogActions>
-        </Dialog>
-
-        {/* update dialog=========== */}
-        {/* dialog delete */}
-
-        <Dialog
-          style={{ direction: "rtl" }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle style={{ color: "black" }} id="alert-dialog-title">
-            {"  هل انت متاكد من حذف هذه المهمة ؟"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText
-              style={{ color: "gray", fontWeight: "300" }}
-              id="alert-dialog-description"
-            >
-              لا يمكن استرجاعه بعد حذف
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>اغلاق</Button>
-            <Button onClick={handledleteconferm} autoFocus>
-              تاكيد,الحذف
-            </Button>
-          </DialogActions>
-        </Dialog>
-        {/* =====dialog==== */}
-      </>
       <Card
         className="todocard"
         sx={{

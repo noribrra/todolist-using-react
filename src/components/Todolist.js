@@ -2,7 +2,7 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useMemo } from "react";
 import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -12,19 +12,81 @@ import Todo from "./Todo";
 import { v4 as idtodo } from "uuid";
 import { Listcontex } from "../context/Listcontext";
 
+// dialog
+
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 export default function Todolist() {
   const { to, setto } = useContext(Listcontex);
   const [typec, settypec] = useState("all");
   const [titleinput, settiltleinput] = useState("");
 
-  // filter for iscomplit and not complit
-  const iscomplit = to.filter((tt) => {
-    return tt.iscompleted;
-  });
+  // dialog state
+  const [open, setOpen] = useState(false);
+  const [openup, setOpenup] = useState(false);
 
-  const notcomplet = to.filter((tt) => {
-    return !tt.iscompleted;
-  });
+  const [dialogobjdelet, setdialogobjdelet] = useState(null);
+
+  const [valueupdate, setvalueupdate] = useState({});
+
+  // function dialog
+
+  const handleClickOpen = (t) => {
+    setdialogobjdelet(t);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  function handledleteconferm() {
+    const newarry = to.filter((tt) => {
+      return tt.id != dialogobjdelet.id;
+    });
+    setto(newarry);
+    localStorage.setItem("todos", JSON.stringify(newarry));
+    setOpen(false);
+  }
+
+  const handleClickOpenup = (t) => {
+    setOpenup(true);
+
+    setvalueupdate(t);
+  };
+
+  const handleCloseup = () => {
+    setOpenup(false);
+  };
+
+  function handalupdateconfirm() {
+    let newupdate = to.map((tt) => {
+      if (tt.id == valueupdate.id) {
+        return { ...tt, title: valueupdate.title, body: valueupdate.body };
+      }
+      return tt;
+    });
+    setto(newupdate);
+    localStorage.setItem("todos", JSON.stringify(newupdate));
+    handleCloseup();
+  }
+
+  // filter for iscomplit and not complit
+
+  const iscomplit = useMemo(() => {
+    return to.filter((tt) => {
+      return tt.iscompleted;
+    });
+  }, [to]);
+
+  const notcomplet = useMemo(() => {
+    return to.filter((tt) => {
+      return !tt.iscompleted;
+    });
+  }, [to]);
   let toberender = to;
   if (typec === "complet") {
     toberender = iscomplit;
@@ -35,7 +97,14 @@ export default function Todolist() {
   }
 
   const todos = toberender.map((t) => {
-    return <Todo t={t} key={t.id}></Todo>;
+    return (
+      <Todo
+        t={t}
+        key={t.id}
+        opendelit={handleClickOpen}
+        openedit={handleClickOpenup}
+      ></Todo>
+    );
   });
 
   useEffect(() => {
@@ -64,6 +133,79 @@ export default function Todolist() {
   // return
   return (
     <>
+      {/* update dialog */}
+      <>
+        <Dialog
+          style={{ direction: "rtl" }}
+          open={openup}
+          onClose={handleCloseup}
+        >
+          <DialogTitle>تعديل هذه المهمة</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="عنوان"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={valueupdate.title}
+              onChange={(e) => {
+                setvalueupdate({ ...valueupdate, title: e.target.value });
+              }}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="تفاصيل"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={valueupdate.body}
+              onChange={(e) => {
+                setvalueupdate({ ...valueupdate, body: e.target.value });
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseup}>اغلاق</Button>
+            <Button onClick={handalupdateconfirm}>تاكيد تعديل</Button>
+          </DialogActions>
+        </Dialog>
+
+        {/* update dialog=========== */}
+        {/* dialog delete */}
+
+        <Dialog
+          style={{ direction: "rtl" }}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle style={{ color: "black" }} id="alert-dialog-title">
+            {"  هل انت متاكد من حذف هذه المهمة ؟"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText
+              style={{ color: "gray", fontWeight: "300" }}
+              id="alert-dialog-description"
+            >
+              لا يمكن استرجاعه بعد حذف
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>اغلاق</Button>
+            <Button onClick={handledleteconferm} autoFocus>
+              تاكيد,الحذف
+            </Button>
+          </DialogActions>
+        </Dialog>
+        {/* =====dialog==== */}
+      </>
+
       <Container maxWidth="sm">
         <Card sx={{ minWidth: 275 }}>
           <CardContent>
