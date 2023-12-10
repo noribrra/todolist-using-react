@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Listcontex } from "./context/Listcontext";
 import { useState } from "react";
 import { v4 as idtodo } from "uuid";
+import { Tostprovider } from "./context/Tostcontext";
 
 // array
 
@@ -28,21 +29,23 @@ function App() {
 
   return (
     <ThemeProvider theme={THEME}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          backgroundColor: "#222",
-          direction: "rtl",
-        }}
-        className="App"
-      >
-        <Listcontex.Provider value={{ to, setto }}>
-          <Todolist />
-        </Listcontex.Provider>
-      </div>
+      <Tostprovider>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            backgroundColor: "#222",
+            direction: "rtl",
+          }}
+          className="App"
+        >
+          <Listcontex.Provider value={{ to, setto }}>
+            <Todolist />
+          </Listcontex.Provider>
+        </div>
+      </Tostprovider>
     </ThemeProvider>
   );
 }

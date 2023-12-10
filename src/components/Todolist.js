@@ -11,6 +11,7 @@ import { Button, Divider, Grid } from "@mui/material";
 import Todo from "./Todo";
 import { v4 as idtodo } from "uuid";
 import { Listcontex } from "../context/Listcontext";
+import { useTost } from "../context/Tostcontext";
 
 // dialog
 
@@ -20,6 +21,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 export default function Todolist() {
+  const { showtost } = useTost();
   const { to, setto } = useContext(Listcontex);
   const [typec, settypec] = useState("all");
   const [titleinput, settiltleinput] = useState("");
@@ -28,14 +30,13 @@ export default function Todolist() {
   const [open, setOpen] = useState(false);
   const [openup, setOpenup] = useState(false);
 
-  const [dialogobjdelet, setdialogobjdelet] = useState(null);
-
   const [valueupdate, setvalueupdate] = useState({});
 
   // function dialog
 
   const handleClickOpen = (t) => {
-    setdialogobjdelet(t);
+    setvalueupdate(t);
+
     setOpen(true);
   };
 
@@ -45,11 +46,12 @@ export default function Todolist() {
 
   function handledleteconferm() {
     const newarry = to.filter((tt) => {
-      return tt.id != dialogobjdelet.id;
+      return tt.id !== valueupdate.id;
     });
     setto(newarry);
     localStorage.setItem("todos", JSON.stringify(newarry));
     setOpen(false);
+    showtost("تم حذف بنجاح", "error");
   }
 
   const handleClickOpenup = (t) => {
@@ -64,7 +66,7 @@ export default function Todolist() {
 
   function handalupdateconfirm() {
     let newupdate = to.map((tt) => {
-      if (tt.id == valueupdate.id) {
+      if (tt.id === valueupdate.id) {
         return { ...tt, title: valueupdate.title, body: valueupdate.body };
       }
       return tt;
@@ -72,6 +74,7 @@ export default function Todolist() {
     setto(newupdate);
     localStorage.setItem("todos", JSON.stringify(newupdate));
     handleCloseup();
+    showtost("تم تعديل بنجاح", "success");
   }
 
   // filter for iscomplit and not complit
@@ -125,6 +128,7 @@ export default function Todolist() {
     setto(add);
     settiltleinput("");
     localStorage.setItem("todos", JSON.stringify(add));
+    showtost("تم الاضافة بنجاح", "success");
   }
   function changtype(e) {
     settypec(e.target.value);
@@ -266,7 +270,7 @@ export default function Todolist() {
                   style={{ width: "83%", height: "100%" }}
                   variant="contained"
                   onClick={handelclickbutton}
-                  disabled={titleinput.length == 0}
+                  disabled={titleinput.length === 0}
                 >
                   اضافة
                 </Button>
