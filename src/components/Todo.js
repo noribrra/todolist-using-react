@@ -2,29 +2,23 @@ import { Grid, IconButton } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { useContext } from "react";
-import { Listcontex } from "../context/Listcontext";
+
 import { useTost } from "../context/Tostcontext";
+import { Todosconred } from "../context/Listcontext";
 // icons
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 export default function Todo({ t, opendelit, openedit }) {
-  const { to, setto } = useContext(Listcontex);
+  const { to, dispatch } = Todosconred();
   const { showtost } = useTost();
 
   // functions
   function click() {
-    const newa = to.map((tt) => {
-      if (t.id === tt.id) {
-        t.iscompleted = !t.iscompleted;
-      }
-      return tt;
-    });
-    setto(newa);
+    dispatch({ type: "commplite", p: t });
+
     showtost(" تم تعديل بنجاح ", "info");
-    localStorage.setItem("todos", JSON.stringify(newa));
   }
 
   function handleClickOpen() {

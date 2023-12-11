@@ -2,16 +2,17 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
-import { useState, useContext, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Container from "@mui/material/Container";
 import { Button, Divider, Grid } from "@mui/material";
 import Todo from "./Todo";
-import { v4 as idtodo } from "uuid";
-import { Listcontex } from "../context/Listcontext";
+
 import { useTost } from "../context/Tostcontext";
+
+import { Todosconred } from "../context/Listcontext";
 
 // dialog
 
@@ -22,7 +23,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 export default function Todolist() {
   const { showtost } = useTost();
-  const { to, setto } = useContext(Listcontex);
+  const { to, dispatch } = Todosconred();
   const [typec, settypec] = useState("all");
   const [titleinput, settiltleinput] = useState("");
 
@@ -45,11 +46,7 @@ export default function Todolist() {
   };
 
   function handledleteconferm() {
-    const newarry = to.filter((tt) => {
-      return tt.id !== valueupdate.id;
-    });
-    setto(newarry);
-    localStorage.setItem("todos", JSON.stringify(newarry));
+    dispatch({ type: "deleted", p: { v: valueupdate } });
     setOpen(false);
     showtost("تم حذف بنجاح", "error");
   }
@@ -65,14 +62,7 @@ export default function Todolist() {
   };
 
   function handalupdateconfirm() {
-    let newupdate = to.map((tt) => {
-      if (tt.id === valueupdate.id) {
-        return { ...tt, title: valueupdate.title, body: valueupdate.body };
-      }
-      return tt;
-    });
-    setto(newupdate);
-    localStorage.setItem("todos", JSON.stringify(newupdate));
+    dispatch({ type: "updata", p: { v: valueupdate } });
     handleCloseup();
     showtost("تم تعديل بنجاح", "success");
   }
@@ -111,23 +101,12 @@ export default function Todolist() {
   });
 
   useEffect(() => {
-    let todolis = JSON.parse(localStorage.getItem("todos")) ?? [];
-    setto(todolis);
+    dispatch({ type: "useeffect", p: {} });
   }, []);
 
-  // functions
-
   function handelclickbutton() {
-    const newtodo = {
-      id: idtodo(),
-      title: titleinput,
-      body: "",
-      iscompleted: false,
-    };
-    let add = [...to, newtodo];
-    setto(add);
+    dispatch({ type: "added", p: { title: titleinput } });
     settiltleinput("");
-    localStorage.setItem("todos", JSON.stringify(add));
     showtost("تم الاضافة بنجاح", "success");
   }
   function changtype(e) {

@@ -1,21 +1,11 @@
 import "./App.css";
 import Todolist from "./components/Todolist";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Listcontex } from "./context/Listcontext";
-import { useState } from "react";
-import { v4 as idtodo } from "uuid";
+
 import { Tostprovider } from "./context/Tostcontext";
+import TodosProvider from "./context/Listcontext";
 
 // array
-
-const todoslist = [
-  {
-    id: idtodo(),
-    title: "دراسة",
-    body: "من ساعة 1 الى 2",
-    iscompleted: false,
-  },
-];
 
 const THEME = createTheme({
   typography: {
@@ -25,8 +15,6 @@ const THEME = createTheme({
   },
 });
 function App() {
-  const [to, setto] = useState(todoslist);
-
   return (
     <ThemeProvider theme={THEME}>
       <Tostprovider>
@@ -41,9 +29,9 @@ function App() {
           }}
           className="App"
         >
-          <Listcontex.Provider value={{ to, setto }}>
+          <TodosProvider>
             <Todolist />
-          </Listcontex.Provider>
+          </TodosProvider>
         </div>
       </Tostprovider>
     </ThemeProvider>
