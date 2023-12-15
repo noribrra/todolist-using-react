@@ -1,24 +1,27 @@
-import { useState, useReducer } from "react";
+import { useState } from "react";
 import "./App.css";
-import { redus } from "./reducers/result";
 
 function App() {
   const [num1, setnum1] = useState("");
   const [num2, setnum2] = useState("");
-  const [res, dispatch] = useReducer(redus, null);
+  const [res, setres] = useState("");
 
   // functions
   function add() {
-    dispatch({ type: "add", ac: { num1: num1, num2: num2 } });
+    const add = Number(num1) + Number(num2);
+    setres(add);
   }
   function sub() {
-    dispatch({ type: "sub", ac: { num1: num1, num2: num2 } });
+    const sub = Number(num1) - Number(num2);
+    setres(sub);
   }
   function mul() {
-    dispatch({ type: "mul", ac: { num1: num1, num2: num2 } });
+    const mul = Number(num1) * Number(num2);
+    setres(mul);
   }
   function div() {
-    dispatch({ type: "div", ac: { num1: num1, num2: num2 } });
+    const div = Number(num1) / Number(num2);
+    setres(div);
   }
   return (
     <div
